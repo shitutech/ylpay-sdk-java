@@ -12,3 +12,4 @@ buildNumber.properties
 
 # IDE
 .idea
+src/main/java/Main.java

@@ -120,7 +120,7 @@ public class AbstractClient {
 
         stringBuilder.append("key=").append(config.getSignKey());
 
-        String sign = hmacDigest(stringBuilder.toString(), config.getSignKey(), "HmacMD5");
+        String sign = hmacDigest(stringBuilder.toString(), config.getSignKey(), "HmacSHA256");
 
         return sign == null ? "" : sign.toUpperCase();
     }
