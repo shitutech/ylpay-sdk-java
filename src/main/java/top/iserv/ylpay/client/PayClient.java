@@ -4,9 +4,11 @@ import com.alibaba.fastjson2.JSON;
 import top.iserv.ylpay.AbstractClient;
 import top.iserv.ylpay.Config;
 import top.iserv.ylpay.request.BarcodeRequest;
+import top.iserv.ylpay.request.LiteRequest;
 import top.iserv.ylpay.request.MerchantScanRequest;
 import top.iserv.ylpay.request.ScancodeRequest;
 import top.iserv.ylpay.response.BarCodeResponse;
+import top.iserv.ylpay.response.LiteResponse;
 import top.iserv.ylpay.response.MerchantScanResponse;
 import top.iserv.ylpay.response.ScancodeResponse;
 
@@ -45,6 +47,18 @@ public class PayClient extends AbstractClient {
         String respData = sendRequest(request.getParams(), "/merchant/pay/merchant_wap_pay", true);
 
         MerchantScanResponse response = JSON.parseObject(respData, MerchantScanResponse.class);
+
+        if (Objects.equals(response.getStatus(), "FAIL")) {
+            throw new RuntimeException(response.getErrMsg());
+        }
+
+        return response;
+    }
+
+    public LiteResponse litePay(LiteRequest request) throws IllegalAccessException {
+        String respData = sendRequest(request.getParams(), "/merchant/pay/mini_program_pay", true);
+
+        LiteResponse response = JSON.parseObject(respData, LiteResponse.class);
 
         if (Objects.equals(response.getStatus(), "FAIL")) {
             throw new RuntimeException(response.getErrMsg());
