@@ -84,4 +84,28 @@ public class PayClient extends AbstractClient {
 
         return response;
     }
+
+    public RefundResponse refund(RefundRequest request) throws IllegalAccessException {
+        String respData = sendRequest(request.getParams(), "/merchant/refund/refund", true);
+
+        RefundResponse response = JSON.parseObject(respData, RefundResponse.class);
+
+        if (Objects.equals(response.getStatus(), "FAIL")) {
+            throw new RuntimeException(response.getErrMsg());
+        }
+
+        return response;
+    }
+
+    public RevokeResponse revoke(RevokeRequest request) throws IllegalAccessException {
+        String respData = sendRequest(request.getParams(), "/merchant/refund/cancel", true);
+
+        RevokeResponse response = JSON.parseObject(respData, RevokeResponse.class);
+
+        if (Objects.equals(response.getStatus(), "FAIL")) {
+            throw new RuntimeException(response.getErrMsg());
+        }
+
+        return response;
+    }
 }
