@@ -3,14 +3,8 @@ package top.iserv.ylpay.client;
 import com.alibaba.fastjson2.JSON;
 import top.iserv.ylpay.AbstractClient;
 import top.iserv.ylpay.Config;
-import top.iserv.ylpay.request.BarcodeRequest;
-import top.iserv.ylpay.request.LiteRequest;
-import top.iserv.ylpay.request.MerchantScanRequest;
-import top.iserv.ylpay.request.ScancodeRequest;
-import top.iserv.ylpay.response.BarCodeResponse;
-import top.iserv.ylpay.response.LiteResponse;
-import top.iserv.ylpay.response.MerchantScanResponse;
-import top.iserv.ylpay.response.ScancodeResponse;
+import top.iserv.ylpay.request.*;
+import top.iserv.ylpay.response.*;
 
 import java.util.Objects;
 
@@ -59,6 +53,30 @@ public class PayClient extends AbstractClient {
         String respData = sendRequest(request.getParams(), "/merchant/pay/mini_program_pay", true);
 
         LiteResponse response = JSON.parseObject(respData, LiteResponse.class);
+
+        if (Objects.equals(response.getStatus(), "FAIL")) {
+            throw new RuntimeException(response.getErrMsg());
+        }
+
+        return response;
+    }
+
+    public DynamicCodeResponse dynamicCodePay(DynamicCodeRequest request) throws IllegalAccessException {
+        String respData = sendRequest(request.getParams(), "/merchant/pay/qr_pay", true);
+
+        DynamicCodeResponse response = JSON.parseObject(respData, DynamicCodeResponse.class);
+
+        if (Objects.equals(response.getStatus(), "FAIL")) {
+            throw new RuntimeException(response.getErrMsg());
+        }
+
+        return response;
+    }
+
+    public OrderPollingResponse orderPolling(OrderPollingRequest request) throws IllegalAccessException {
+        String respData = sendRequest(request.getParams(), "/merchant/pay/query_order", true);
+
+        OrderPollingResponse response = JSON.parseObject(respData, OrderPollingResponse.class);
 
         if (Objects.equals(response.getStatus(), "FAIL")) {
             throw new RuntimeException(response.getErrMsg());
