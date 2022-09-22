@@ -115,6 +115,14 @@ public class AbstractClient {
                 continue;
             }
 
+            try {
+                if (Objects.equals(key, "notify_url")) {
+                    keyValue = URLEncoder.encode((String) keyValue, "UTF-8");
+                }
+            } catch (UnsupportedEncodingException ignored) {
+
+            }
+
             stringBuilder.append(key).append("=").append(keyValue).append("&");
         }
 
