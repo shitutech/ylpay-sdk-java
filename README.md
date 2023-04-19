@@ -30,3 +30,17 @@ public class Main {
     }
 }
 ```
+
+# 接口
+
+| API       | 请求类                 | 响应类                  |
+|-----------|---------------------|----------------------|
+| 营业员登录     | LoginRequest        | LoginResponse        |
+| B扫C支付     | BarcodeRequest      | BarCodeResponse      |
+| C扫B支付     | ScancodeRequest     | ScancodeResponse     |
+| 商户自主C扫B支付 | MerchantScanRequest | MerchantScanResponse |
+| 微信小程序支付   | LiteRequest         | LiteResponse         |
+| 支付宝动码     | DynamicCodeRequest  | DynamicCodeResponse  |
+| 订单轮询      | OrderPollingRequest | OrderPollingResponse |
+| 订单退款      | RefundRequest       | RefundResponse       |
+| 订单撤销      | RevokeRequest       | RevokeResponse       |

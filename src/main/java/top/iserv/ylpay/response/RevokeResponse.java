@@ -1,4 +1,4 @@
-package top.iserv.ylpay.request;
+package top.iserv.ylpay.response;
 
 import top.iserv.ylpay.AbstractResponse;
 
